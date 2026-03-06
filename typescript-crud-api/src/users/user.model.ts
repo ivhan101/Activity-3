@@ -12,6 +12,7 @@ export interface UserAttributes {
 	role: string;
 	createdAt: Date;
 	updatedAt: Date;
+	websiteUrl?: string;
 }
 
 // Define optional attributes for creation
@@ -30,8 +31,8 @@ export class User
 	public firstName!: string;
 	public lastName!: string;
 	public role!: string;
+	public websiteUrl?: string;
 
-	// Timestamps
 	public readonly createdAt!: Date;
 	public readonly updatedAt!: Date;
 }
@@ -80,6 +81,15 @@ export default function (sequelize: Sequelize): typeof User {
 				allowNull: false,
 				defaultValue: DataTypes.NOW,
 			},
+websiteUrl: {
+	type: DataTypes.STRING,
+	allowNull: true,
+	validate: {
+		isUrl: {
+			msg: 'websiteUrl must be a valid URL',
+		},
+	},
+},
 		},
 		{
 			sequelize,
@@ -99,4 +109,3 @@ export default function (sequelize: Sequelize): typeof User {
 
 	return User;
 }
-

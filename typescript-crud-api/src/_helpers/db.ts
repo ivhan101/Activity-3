@@ -18,7 +18,7 @@ export async function initialize(): Promise<void>{
 
     const sequelize = new Sequelize(database, user, password,{dialect: 'mysql'});
 
-    // Use a static import so TypeScript can resolve types correctly
+    
     const userModel = (await import('../users/user.model')).default;
     db.User = userModel(sequelize);
 
